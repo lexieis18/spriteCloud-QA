@@ -1,0 +1,26 @@
+{
+  "name": "spritecloud-qa",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lexieis18/spriteCloud-QA.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lexieis18/spriteCloud-QA/issues"
+  },
+  "homepage": "https://github.com/lexieis18/spriteCloud-QA#readme",
+  "description": "",
+  "devDependencies": {
+    "@faker-js/faker": "^9.8.0",
+    "@playwright/test": "^1.52.0",
+    "@types/dotenv": "^6.1.1",
+    "@types/node": "^22.15.24",
+    "dotenv": "^16.5.0",
+    "typescript": "^5.8.3"
+  }
+}

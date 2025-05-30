@@ -1,0 +1,39 @@
+import { test, expect } from '@playwright/test';
+import { APIClient } from '../../helpers/api-client';
+import { endpoints } from '../../helpers/endpoints';
+import { 
+    LoginResponse, 
+    ErrorResponse
+} from '../../types/api.types';
+import { invalidLogin, validLogin } from '../../fixtures/login-data';
+
+let api: APIClient;
+
+test.beforeAll(async () => {
+    api = new APIClient();  // No need to pass baseURL as it's configured in playwright.config.ts
+    await api.init();
+});
+
+test.afterAll(async () => {
+    await api.dispose();
+});
+
+test.describe('Login API Tests', () => {
+
+    test('should perform successful login', async () => {
+        const response = await api.post(endpoints.login, validLogin);
+
+        expect(response.status).toBe(200);
+        const body = response.body as LoginResponse;
+        expect(body.token).toBeTruthy();
+    });
+
+    test('should fail login with missing password', async () => {
+        const response = await api.post(endpoints.login, invalidLogin);
+
+        expect(response.status).toBe(400);
+        const body = response.body as ErrorResponse;
+        expect(body.error).toBe('Missing password');
+    });
+
+}); 
