@@ -1,4 +1,4 @@
-# SpriteCloud QA Automation
+# SpriteCloud QA Task
 
 This project contains automated API and Web UI tests using Playwright and TypeScript.
 
@@ -112,17 +112,6 @@ npx playwright show-report
 - `login.spec.ts`: Tests user authentication
 - `inventory.spec.ts`: Tests inventory list
 - `checkout.spec.ts`: Tests checkout process
-
-
-## Test Configuration
-
-The `playwright.config.ts` file contains settings for:
-- Browser configurations
-- Viewport sizes
-- Timeouts
-- Retry settings
-- Reporter options
-- Project-specific settings
 
 ## Continuous Integration
 
