@@ -1,7 +1,7 @@
 name: Playwright Tests
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   workflow_dispatch:
 jobs:
   test:
@@ -30,10 +30,8 @@ jobs:
     - name: Create env file
       run: |
         echo '${{ secrets.ENV_CI }}' > .env
-    - name: Run API tests
-      run: npx playwright test api/
-    - name: Run Web tests
-      run: npx playwright test web/
+    - name: Run all tests
+      run: npx playwright test
     - name: Upload test results
       if: always()
       uses: actions/upload-artifact@v4
