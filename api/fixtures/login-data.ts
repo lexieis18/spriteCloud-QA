@@ -6,11 +6,7 @@ export const validLogin: LoginRequest = {
     password: apiPassword
 };
 
-// export const invalidLogin: LoginRequest = {
-//     email: apiEmail || '',
-//     password: ''
-// };
-
-export const invalidLogin = {
-    email: apiEmail
+export const missingPasswordLogin: LoginRequest = {
+    email: apiEmail,
+    password: ''
 };

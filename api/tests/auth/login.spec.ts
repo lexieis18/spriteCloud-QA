@@ -5,7 +5,7 @@ import {
     LoginResponse, 
     ErrorResponse
 } from '../../types/api.types';
-import { invalidLogin, validLogin } from '../../fixtures/login-data';
+import { missingPasswordLogin, validLogin } from '../../fixtures/login-data';
 import { errorMessage } from '../../constants/messages';
 
 let api: APIClient;
@@ -30,7 +30,7 @@ test.describe('Login API Tests', () => {
     });
 
     test('should fail login with missing password', async () => {
-        const response = await api.post(endpoints.login, invalidLogin);
+        const response = await api.post(endpoints.login, missingPasswordLogin);
 
         expect(response.status).toBe(400);
         const body = response.body as ErrorResponse;

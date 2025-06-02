@@ -53,3 +53,10 @@ export interface UpdateUserResponse {
 export interface ErrorResponse {
     error: string;
 } 
+
+export interface Response {
+    status: number;
+    body: any;
+    headers: Record<string, string>;
+    duration: number;
+}

@@ -1,4 +1,5 @@
 import { request, APIRequestContext, APIResponse } from '@playwright/test';
+import { Response } from '../types/api.types';
 
 export class APIClient {
   private context: APIRequestContext;
@@ -7,7 +8,7 @@ export class APIClient {
     this.context = await request.newContext();
   }
 
-  private async _request(method: 'get' | 'post' | 'put' | 'delete', path: string, data?: Record<string, any>) {
+  private async _request(method: 'get' | 'post' | 'put' | 'delete', path: string, data?: Record<string, any>): Promise<Response> {
     const startTime = Date.now();
     let response: APIResponse;
     if (method === 'get' || method === 'delete') {
@@ -24,19 +25,19 @@ export class APIClient {
     };
   }
 
-  async get(path: string) {
+  async get(path: string): Promise<Response> {
     return this._request('get', path);
   }
 
-  async post(path: string, body: Record<string, any>) {
+  async post(path: string, body: Record<string, any>): Promise<Response> {
     return this._request('post', path, body);
   }
 
-  async put(path: string, body: Record<string, any>) {
+  async put(path: string, body: Record<string, any>): Promise<Response> {
     return this._request('put', path, body);
   }
 
-  async delete(path: string) {
+  async delete(path: string): Promise<Response> {
     return this._request('delete', path);
   }
 

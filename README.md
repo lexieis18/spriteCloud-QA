@@ -119,7 +119,7 @@ This project runs in the pipeline with GitHub Actions
 https://github.com/lexieis18/spriteCloud-QA/actions/workflows/playwright.yml
 ```
 
-## References
+## AI References
 - Cursor using AI agent (model - claude-3.5-sonnet)
 - Chatgpt 4o
 

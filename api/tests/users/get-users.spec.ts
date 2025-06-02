@@ -46,7 +46,7 @@ test.describe('Get Users API', () => {
         
         expect(response.status).toBe(200);
         expect(response.duration).toBeLessThanOrEqual(3500);
-        console.log("The request takes " + response.duration + "ms");
+        console.log(`Request duration: ${response.duration}ms`);
         
         const body = response.body as UserListResponse;
         UserValidator.validateUserListResponse(body, 1);
