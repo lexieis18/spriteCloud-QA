@@ -116,8 +116,9 @@ npm run report
 This project runs in the pipeline with GitHub Actions
 - The workflow can be triggered manually, you can go directly via the link below
 ```md
-[![CI](https://github.com/lexieis18/spriteCloud-QA/actions/workflows/playwright.yml/badge.svg)](https://github.com/lexieis18/spriteCloud-QA/actions/workflows/playwright.yml)
+[![Playwright Tests](https://github.com/lexieis18/spriteCloud-QA/actions/workflows/playwright.yml/badge.svg)](https://github.com/lexieis18/spriteCloud-QA/actions/workflows/playwright.yml)
 ```
+
 
 ## AI References
 - Cursor using AI agent (model - claude-3.5-sonnet)
