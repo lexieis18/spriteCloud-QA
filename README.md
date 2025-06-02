@@ -6,15 +6,19 @@ This project contains automated API and Web UI tests using Playwright and TypeSc
 
 ```
 ├── api/                 # API Test Suite
+│   ├── constants/        # Test constants and auth config
 │   ├── fixtures/        # Test fixtures and data generators
 │   ├── helpers/         # Utility functions and API client
 │   ├── tests/          # Test files
 │   │   └── users/      # User-related test cases
 │   └── types/          # TypeScript type definitions
 ├── web/                 # Web Test Suite
+│   ├── constants/       # Test constants and auth config
+│   ├── fixtures/       # Test fixtures and data generators
 │   ├── helpers/        # Utility functions and type definitions
 │   ├── pages/          # Page Object Models
 │   └── tests/          # Test files
+│   ├── types/          # TypeScript type definitions
 ├── playwright.config.ts # Playwright configuration
 └── package.json        # Project dependencies
 ```
@@ -44,8 +48,7 @@ npx playwright install
 
 4. Create a `.env` file in the root directory with the variables from `.env.example`:
 ```
-API_URL=https://reqres.in
-BASE_URL=
+Note: The values are usually not added to the env.example but due to the assignment, I have added it for ease of access.
 ```
 
 ## Running Tests
@@ -54,29 +57,24 @@ BASE_URL=
 
 Run all API tests:
 ```bash
-npx playwright test api/
-```
-
-Run specific API test file:
-```bash
-npx playwright test api/tests/users/
+npm run test:api
 ```
 
 ### Web Tests
 
 Run all web tests:
 ```bash
-npx playwright test web/
+npm run test:web
 ```
 
-Run specific web test file:
+Run all tests:
 ```bash
-npx playwright test web/tests/login.spec.ts
+npx playwright test
 ```
 
 View test report:
 ```bash
-npx playwright show-report
+npm run report
 ```
 
 ## Test Structure
@@ -92,7 +90,7 @@ npx playwright show-report
 - Data generators using Faker.js
 
 #### API Test Files
-- `get-users.spec.ts`: Tests for retrieving user data
+- `get-users.spec.ts`: Validates user retrieval and pagination
 - `update-user.spec.ts`: Tests for updating user data
 - `delete-user.spec.ts`: Tests for user deletion
 
@@ -109,13 +107,17 @@ npx playwright show-report
 
 #### Web Test Files
 - `auth.setup.ts`: Authentication state management
-- `login.spec.ts`: Tests user authentication
-- `inventory.spec.ts`: Tests inventory list
-- `checkout.spec.ts`: Tests checkout process
+- `login.spec.ts`: Tests user authentication and handles invalid login
+- `inventory.spec.ts`: Sorts and adds inventory items to cart
+- `checkout.spec.ts`: Fills shipping, asserts price breakdown, completes purchase
 
 ## Continuous Integration
 
-This project is integrated with a CI/CD platform:
-- GitHub Actions
+This project is integrated with a CI/CD platform: GitHub Actions
+- The workflow can be triggered manually by going to the Actions tab and clicking the workflow.
+
+## References
+- Cursor using AI agent (model - claude-3.5-sonnet)
+- Chatgpt 4o
 
 

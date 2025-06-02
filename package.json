@@ -2,7 +2,11 @@
   "name": "spritecloud-qa",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test:web": "npx playwright test web/",
+    "test:api": "npx playwright test api/",
+    "report": "npx playwright show-report"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lexieis18/spriteCloud-QA.git"

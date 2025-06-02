@@ -12,14 +12,14 @@ test.describe('Inventory Sorting', () => {
     });
 
     test('should sort products by name Z to A', async () => {
-        const productNames = await inventoryPage.getProductNames();
+        const productNames = await inventoryPage.getAvailableProducts();
         expect(productNames.length).toBeGreaterThan(0);
         
         await inventoryPage.sortBy(SortOption.ZA);
-        const sortedNames = await inventoryPage.getProductNames();
+        const sortedNames = await inventoryPage.getAvailableProducts();
         expect(sortedNames.length).toBeGreaterThan(0);
 
-        const reversedNames = [...productNames].sort().reverse();
+        const reversedNames = [...productNames].sort((a, b) => a.localeCompare(b)).reverse();
 
         expect(sortedNames).toEqual(reversedNames);
     });

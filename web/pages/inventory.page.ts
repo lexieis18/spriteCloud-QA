@@ -1,4 +1,4 @@
-import { Locator, Page } from '@playwright/test';
+import { expect, Locator, Page } from '@playwright/test';
 import { SortOption } from '../types/types';
 
 export class InventoryPage {
@@ -14,22 +14,32 @@ export class InventoryPage {
         this.inventoryItems = page.locator('.inventory_item_name');
         this.cartButton = page.locator('.shopping_cart_link');
         this.inventoryItem = page.locator('.inventory_item');
-
     }
 
     async sortBy(option: SortOption) {
-        await this.sortDropdown.click();
         await this.sortDropdown.selectOption(option);
     }
 
-    async getProductNames(): Promise<string[]> {
-        const items = await this.inventoryItems.all();
-        return Promise.all(items.map(item => item.textContent().then(text => text || '')));
+    async getAvailableProducts(): Promise<string[]> {
+        const items = await this.inventoryItems.allTextContents();
+        return items;
+    }
+
+    async getRandomProducts(count: number = 1): Promise<string[]> {
+        const products = await this.getAvailableProducts();
+        if (count > products.length) {
+            throw new Error(`Cannot get ${count} products, only ${products.length} available`);
+        }
+        return [...products]
+            .sort(() => Math.random() - 0.5)
+            .slice(0, count);
     }
 
     async addProductToCart(productName: string) {
         const item = this.inventoryItem.filter({ hasText: productName });
-        await item.locator('button').click();
+        const button = item.locator('button');
+        await expect(button).toBeVisible();
+        await button.click();
     }
 
     async goToCart() {

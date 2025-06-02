@@ -12,13 +12,21 @@ test.describe('Login Functionality', () => {
     });
 
     test('successful login with valid credentials', async () => {
-        await loginPage.login(username, password);       
-        await expect(await loginPage.isLoggedIn()).toBeTruthy();
+        await loginPage.login({ username, password });       
+        expect(await loginPage.isLoggedIn()).toBe(true);
     });
 
-    test('failed login with invalid credentials', async () => {
-        await loginPage.login('invalid_user', 'invalid_password');      
-        await expect(await loginPage.hasError()).toBeTruthy();
+    test('failed login with invalid username', async () => {
+        await loginPage.login({ username: 'invalid_user', password });      
+        await expect(await loginPage.hasError()).toBe(true);
+        
+        const message = await loginPage.getErrorMessage();
+        await expect(message).toContain(errorMessage.invalidCredentials);
+    });
+
+    test('failed login with invalid password', async () => {
+        await loginPage.login({ username, password: 'invalid_password' });      
+        await expect(await loginPage.hasError()).toBe(true);
         
         const message = await loginPage.getErrorMessage();
         await expect(message).toContain(errorMessage.invalidCredentials);

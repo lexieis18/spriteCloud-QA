@@ -1,5 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import { paths } from '../constants/paths';
+import { User } from '../types/types';
 
 export class LoginPage {
     readonly page: Page;
@@ -20,7 +21,7 @@ export class LoginPage {
         await this.page.goto('/');
     }
 
-    async login(username: string, password: string) {
+    async login({ username, password }: User) {
         await this.usernameInput.fill(username);
         await this.passwordInput.fill(password);
         await this.loginButton.click();
@@ -36,5 +37,14 @@ export class LoginPage {
 
     async isLoggedIn(): Promise<boolean> {
         return this.page.url().includes(paths.inventory);
+    }
+
+    async assertLoggedIn(): Promise<void>  {
+        if (await this.hasError()) {
+            throw new Error(`Login failed: ${await this.getErrorMessage()}`);
+          }
+          if (!await this.isLoggedIn()) {
+            throw new Error('Login failed: Not redirected');
+          }
     }
 } 

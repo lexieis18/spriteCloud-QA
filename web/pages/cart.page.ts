@@ -1,4 +1,5 @@
 import { Locator, Page } from '@playwright/test';
+import { parsePriceToNumber } from '../helpers/utils';
 
 export class CartPage {
     readonly page: Page;
@@ -10,7 +11,7 @@ export class CartPage {
         this.page = page;
         this.checkoutButton = page.locator('[data-test="checkout"]');
         this.cartItems = page.locator('.cart_item');
-        this.cartItemPrices = page.locator('.inventory_item_price');
+        this.cartItemPrices = page.locator('.cart_item .inventory_item_price');
     }
 
     async proceedToCheckout() {
@@ -27,6 +28,6 @@ export class CartPage {
     }
 
     private parsePriceToNumber(price: string): number {
-        return parseFloat(price.replace('$', ''));
+        return parsePriceToNumber(price);
     }
 } 

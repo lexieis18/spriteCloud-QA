@@ -6,6 +6,8 @@ import { paths } from '../constants/paths';
 import { ShippingInfo } from '../types/types';
 import { generateShippingInfo } from '../fixtures/checkout.fixture';
 
+
+
 test.describe('Checkout Process', () => {
     let shippingInfo: ShippingInfo;
     let inventoryPage: InventoryPage;
@@ -21,28 +23,40 @@ test.describe('Checkout Process', () => {
 
     test('should complete checkout with multiple items', async ({ page }) => {
         await page.goto(paths.inventory);
+        const productsToAdd = await inventoryPage.getRandomProducts(2);
+        await test.step('Add products to cart', async () => {
+            for (const product of productsToAdd) {
+                await inventoryPage.addProductToCart(product);
+            }
+        });
 
-        await inventoryPage.addProductToCart('Sauce Labs Backpack');
-        await inventoryPage.addProductToCart('Sauce Labs Bike Light');
-
-        await inventoryPage.goToCart();
+        await test.step('Go to cart', async () => {
+            await inventoryPage.goToCart();
+        });
 
         const itemCount = await cartPage.getCartItemsCount();
-        expect(itemCount).toBe(2);
+        expect(itemCount).toBe(productsToAdd.length); 
         const cartTotal = await cartPage.getTotalPrice();
-        await cartPage.proceedToCheckout();
+        await test.step('Proceed to checkout', async () => {
+            await cartPage.proceedToCheckout();
+        });
 
-        await checkoutPage.fillShippingInfo(shippingInfo.firstName, shippingInfo.lastName, shippingInfo.postalCode);
+        await test.step('Fill shipping info', async () => {
+            await checkoutPage.fillShippingInfo(shippingInfo);
+        });
 
-        const subtotal = await checkoutPage.getSubtotal();
-        const tax = await checkoutPage.getTax();
-        const total = await checkoutPage.getTotal();
+        await test.step('Get totals', async () => {
+            const subtotal = await checkoutPage.getSubtotal();
+            const tax = await checkoutPage.getTax();
+            const total = await checkoutPage.getTotal();
+            expect(subtotal).toBeCloseTo(cartTotal, 2);
+            expect(total).toBeCloseTo(subtotal + tax, 2);
+        });
 
-        expect(subtotal).toBe(cartTotal);
-        expect(total).toBe(subtotal + tax);
+        await test.step('Complete purchase', async () => {
+            await checkoutPage.completePurchase();
+        });
 
-        await checkoutPage.completePurchase();
-
-        expect(page.url()).toContain(paths.checkoutComplete);
+        expect(await checkoutPage.isCheckoutComplete()).toBe(true);
     });
 }); 

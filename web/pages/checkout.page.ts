@@ -1,4 +1,7 @@
 import { Locator, Page } from '@playwright/test';
+import { ShippingInfo } from '../types/types';
+import { parsePriceToNumber } from '../helpers/utils';
+import { paths } from '../constants/paths';
 
 export class CheckoutPage {
     readonly page: Page;
@@ -23,7 +26,7 @@ export class CheckoutPage {
         this.totalLabel = page.locator('[data-test="total-label"]');
     }
 
-    async fillShippingInfo(firstName: string, lastName: string, postalCode: string) {
+    async fillShippingInfo({ firstName, lastName, postalCode }: ShippingInfo) {
         await this.firstNameInput.fill(firstName);
         await this.lastNameInput.fill(lastName);
         await this.postalCodeInput.fill(postalCode);
@@ -32,6 +35,12 @@ export class CheckoutPage {
 
     async completePurchase() {
         await this.finishButton.click();
+        await this.page.waitForURL(paths.checkoutComplete);
+    }
+
+    async isCheckoutComplete(): Promise<boolean> {
+        return await this.page.locator('.complete-header').isVisible() &&
+           await this.page.locator('.complete-header').innerText() === 'Thank you for your order!';
     }
 
     async getSubtotal(): Promise<number> {
@@ -50,6 +59,6 @@ export class CheckoutPage {
     }
 
     private parsePriceToNumber(price: string): number {
-        return parseFloat(price.replace(/[^0-9.]/g, ''));
+        return parsePriceToNumber(price);
     }
-} 
+} ;
