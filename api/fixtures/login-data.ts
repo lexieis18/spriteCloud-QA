@@ -1,9 +1,9 @@
 import { LoginRequest } from "../types/api.types";
-import { apiEmail, apiPassword } from "../helpers/constants";
+import { apiEmail, apiPassword } from "../constants/env";
 
 export const validLogin: LoginRequest = {
-    email: apiEmail || '',
-    password: apiPassword || ''
+    email: apiEmail,
+    password: apiPassword
 };
 
 // export const invalidLogin: LoginRequest = {
@@ -12,5 +12,5 @@ export const validLogin: LoginRequest = {
 // };
 
 export const invalidLogin = {
-    email: apiEmail || ''
+    email: apiEmail
 };

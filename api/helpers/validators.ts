@@ -3,13 +3,11 @@ import { UserListResponse, User, UpdateUserResponse, CreateUserResponse } from '
 
 export class UserValidator {
     static validateUserListResponse(body: UserListResponse, expectedPage: number) {
-        // Validate pagination
         expect(body.data).toBeDefined();
         expect(body.data.length).toBe(body.per_page);
         expect(body.page).toBe(expectedPage);
         expect(body.total).toBeGreaterThan(0);
 
-        // Validate user structure for each user in the list
         body.data.forEach(this.validateUserStructure);
     }
 

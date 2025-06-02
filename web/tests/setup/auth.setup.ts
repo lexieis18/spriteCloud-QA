@@ -1,6 +1,6 @@
 import { test as setup } from '@playwright/test';
 import { LoginPage } from '../../pages/login.page';
-import { password, username } from '@/web/helpers/constants';
+import { password, username } from '@/web/constants/env';
 
 setup('log in and store signed-in state', async ({ page }) => {
     const loginPage = new LoginPage(page);

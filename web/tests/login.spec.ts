@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/login.page';
-import { errorMessage, password, username } from '../helpers/constants';
+import { password, username } from '../constants/env';
+import { errorMessage } from '../constants/messages';
     
 test.describe('Login Functionality', () => {
     let loginPage: LoginPage;
@@ -11,11 +12,7 @@ test.describe('Login Functionality', () => {
     });
 
     test('successful login with valid credentials', async () => {
-        await loginPage.login(
-            username || '',
-            password || ''
-        );
-        
+        await loginPage.login(username, password);       
         await expect(await loginPage.isLoggedIn()).toBeTruthy();
     });
 

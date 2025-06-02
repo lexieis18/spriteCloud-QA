@@ -1,4 +1,5 @@
-import { Locator, Page, expect } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
+import { paths } from '../constants/paths';
 
 export class LoginPage {
     readonly page: Page;
@@ -15,9 +16,6 @@ export class LoginPage {
         this.errorMessage = page.locator('[data-test="error"]');
     }
 
-    /**
-     * Navigate to Sauce Demo login page
-     */
     async goto() {
         await this.page.goto('/');
     }
@@ -37,6 +35,6 @@ export class LoginPage {
     }
 
     async isLoggedIn(): Promise<boolean> {
-        return this.page.url().includes('inventory.html');
+        return this.page.url().includes(paths.inventory);
     }
 } 

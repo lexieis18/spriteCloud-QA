@@ -4,7 +4,7 @@ export class APIClient {
   private context: APIRequestContext;
 
   async init() {
-    this.context = await request.newContext();  // Uses config from playwright.config.ts
+    this.context = await request.newContext();
   }
 
   private async _request(method: 'get' | 'post' | 'put' | 'delete', path: string, data?: Record<string, any>) {
