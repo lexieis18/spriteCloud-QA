@@ -17,8 +17,8 @@ This project contains automated API and Web UI tests using Playwright and TypeSc
 │   ├── fixtures/       # Test fixtures and data generators
 │   ├── helpers/        # Utility functions and type definitions
 │   ├── pages/          # Page Object Models
-│   └── tests/          # Test files
-│   ├── types/          # TypeScript type definitions
+│   ├── tests/          # Test files
+│   └── types/           # TypeScript type definitions
 ├── playwright.config.ts # Playwright configuration
 └── package.json        # Project dependencies
 ```
@@ -48,7 +48,7 @@ npx playwright install
 
 4. Create a `.env` file in the root directory with the variables from `.env.example`:
 ```
-Note: The values are usually not added to the env.example but due to the assignment, I have added it for ease of access.
+Note: Environment variable values are typically not added to .env.example for security, but for this assignment, sample values are included for convenience.
 ```
 
 ## Running Tests
@@ -91,8 +91,8 @@ npm run report
 
 #### API Test Files
 - `get-users.spec.ts`: Validates user retrieval and pagination
-- `update-user.spec.ts`: Tests for updating user data
-- `delete-user.spec.ts`: Tests for user deletion
+- `update-user.spec.ts`: Validates user update functionality
+- `delete-user.spec.ts`: Validates user deletion functionality
 
 ### Web Testing
 #### Page Objects
@@ -113,8 +113,11 @@ npm run report
 
 ## Continuous Integration
 
-This project is integrated with a CI/CD platform: GitHub Actions
-- The workflow can be triggered manually by going to the Actions tab and clicking the workflow.
+This project runs in the pipeline with GitHub Actions
+- The workflow can be triggered manually, you can go directly via the link below
+```md
+https://github.com/lexieis18/spriteCloud-QA/actions/workflows/playwright.yml
+```
 
 ## References
 - Cursor using AI agent (model - claude-3.5-sonnet)
